@@ -12,9 +12,6 @@
 * PHP5 Implementation of the Snowball Norwegian stemming algorithm
 *  - http://snowball.tartarus.org/algorithms/norwegian/stemmer.html
 *
-* Certain elements borrowed from @camspiers
-*  - (https://github.com/camspiers/porter-stemmer/),
-*
 * Usage:
 *
 *  $stem = NorwegianStemmer::Stem($word);
@@ -211,6 +208,11 @@ class NorwegianStemmer
     }
 
     /**
+    * The following to methods are shamelessly borrowed from @camspiers
+    * - https://github.com/camspiers/porter-stemmer/
+    */
+
+    /**
     * Replaces the first string with the second, at the end of the string. If third
     * arg is given, then the preceding string must match that m count at least.
     *
@@ -236,5 +238,33 @@ class NorwegianStemmer
         }
 
         return false;
+    }
+
+    /**
+    * What, you mean it's not obvious from the name?
+    *
+    * m() measures the number of consonant sequences in $str. if c is
+    * a consonant sequence and v a vowel sequence, and <..> indicates arbitrary
+    * presence,
+    *
+    * <c><v>       gives 0
+    * <c>vc<v>     gives 1
+    * <c>vcvc<v>   gives 2
+    * <c>vcvcvc<v> gives 3
+    *
+    * @param  string $str The string to return the m count for
+    * @return int         The m count
+    */
+    private static function m($str)
+    {
+        $c = self::$regex_consonant;
+        $v = self::$regex_vowel;
+
+        $str = preg_replace("#^$c+#", '', $str);
+        $str = preg_replace("#$v+$#", '', $str);
+
+        preg_match_all("#($v+$c+)#", $str, $matches);
+
+        return count($matches[1]);
     }
 }
