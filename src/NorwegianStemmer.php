@@ -159,7 +159,7 @@ class NorwegianStemmer
         $e_matches = array();
 
         if (preg_match("#$e#", $r1, $e_matches) > 0) {
-            $longest_e_match;
+            $longest_e_match = '';
             foreach ($e_matches as &$e_match) {
                 if (self::count($e_match) > self::count($longest_e_match)) {
                     $longest_e_match = $e_match;
