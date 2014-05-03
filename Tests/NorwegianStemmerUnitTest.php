@@ -6,7 +6,7 @@ class NorwegianStemmerUnitTest extends PHPUnit_Framework_TestCase
 {
     public function testStemming()
     {
-        $handle = fopen("test/fixtures.txt", "r");
+        $handle = fopen("Tests/fixtures.txt", "r");
         if ($handle) {
             while (($line = fgets($handle)) !== false) {
                 $words = preg_split('/\s+/', trim($line));
