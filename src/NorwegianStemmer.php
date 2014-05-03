@@ -183,6 +183,11 @@ class NorwegianStemmer
         $nv = self::$regex_non_vowels;
 
         $substrings = preg_split("#$v+$nv#", $word, 2);
+
+        if (count($substrings) < 2) {
+            return '';
+        }
+
         $r1 = $substrings[1];
 
         while (self::count($r1) > 0 && self::count(preg_replace("#$r1$#", '', $word)) < 3) {
