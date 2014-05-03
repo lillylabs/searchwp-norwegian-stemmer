@@ -2,7 +2,7 @@
 
 require('src/NorwegianStemmer.php');
 
-class NorwegianStemmerUnitTests extends PHPUnit_Framework_TestCase
+class NorwegianStemmerUnitTest extends PHPUnit_Framework_TestCase
 {
     public function testStemming()
     {
